@@ -20,6 +20,22 @@ app.get('/api/:shortCode', (req, res) => {
   return redirectHandler(req, res);
 });
 
+// Status root for local dev
+app.get('/', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.send(`
+    <html><head><meta charset="utf-8"><title>link-leap API</title></head>
+    <body style="font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;padding:2rem">
+      <h1>link-leap API (local)</h1>
+      <p>Status: <strong>Online</strong></p>
+      <ul>
+        <li><a href="/api/links">/api/links</a></li>
+        <li><a href="/api/status">/api/status</a></li>
+      </ul>
+    </body></html>
+  `);
+});
+
 app.listen(port, () => {
   console.log(`Backend API server listening on http://localhost:${port}`);
 });
