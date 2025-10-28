@@ -10,10 +10,12 @@ export default function Dashboard() {
   const [q, setQ] = useState("");
 
   useEffect(() => {
-    fetch("/api/links")
-      .then((r) => r.json())
-      .then(setUrls)
-      .catch((e) => console.error(e));
+    import("../lib/api").then(({ apiFetch }) => {
+      apiFetch('/api/links')
+        .then((r) => r.json())
+        .then(setUrls)
+        .catch((e) => console.error(e));
+    });
   }, []);
 
   const filtered = urls.filter(u => {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiFetch } from "../lib/api";
 
 export default function Home() {
   const [originalUrl, setOriginalUrl] = useState("");
@@ -13,7 +14,7 @@ export default function Home() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/shorten", {
+      const res = await apiFetch("/api/shorten", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ originalUrl, expiryDate, customAlias: customAlias || undefined })
