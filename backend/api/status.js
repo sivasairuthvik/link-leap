@@ -23,5 +23,8 @@ export default function handler(req, res) {
   `;
 
   res.setHeader('Content-Type', 'text/html');
+  // Allow status to be fetched cross-origin too
+  res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || '*');
+  res.setHeader('Vary', 'Origin');
   res.status(200).send(html);
 }

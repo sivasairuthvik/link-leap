@@ -16,6 +16,8 @@ MERN-style URL shortener scaffold (Vite + React frontend in `frontend/`, backend
 ## Environment variables (set in Vercel or locally)
 - `MONGO_URI` — MongoDB Atlas connection string
 - `BASE_URL` — Your deployed app URL (e.g. `https://yourapp.vercel.app`)
+ - `FRONTEND_URL` — (optional) the frontend origin (e.g. `https://shortner-link.vercel.app`) used to lock CORS. If unset, the API allows any origin (`*`).
+ - `BASE_URL` — Your deployed app URL (e.g. `https://yourapp.vercel.app`)
  - `BASE_URL` — Your deployed app URL (e.g. `https://yourapp.vercel.app`)
 
 Custom alias
