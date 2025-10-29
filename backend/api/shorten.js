@@ -20,6 +20,13 @@ export default async function handler(req, res) {
   const { originalUrl, expiryDate, customAlias } = req.body || {};
   if (!originalUrl) return res.status(400).json({ error: "originalUrl is required" });
 
+  // Normalize URL: ensure it has a scheme. If missing, default to https://
+  const normalizeUrl = (u) => {
+    const s = String(u).trim();
+    if (!/^https?:\/\//i.test(s)) return `https://${s}`;
+    return s;
+  };
+
   // If user provided a custom alias, validate and ensure it's unique
   let shortCode;
   if (customAlias) {
@@ -45,13 +52,18 @@ export default async function handler(req, res) {
     if (exists) return res.status(500).json({ error: "Failed to generate unique short code, try again" });
   }
 
-  const base = process.env.BASE_URL || (req.headers && `${req.headers.origin}`) || "";
+  // Build an absolute base URL for the short link. Prefer explicit BASE_URL.
+  // If not provided, use x-forwarded headers (set by Vercel / proxies) or the host header
+  const forwardedProto = req.headers['x-forwarded-proto'] || req.headers['x-forwarded-protocol'] || 'https';
+  const hostHeader = req.headers['x-forwarded-host'] || req.headers['x-forwarded-server'] || req.headers.host || '';
+  const detectedBase = hostHeader ? `${forwardedProto}://${hostHeader}` : (req.headers && req.headers.origin) || '';
+  const base = process.env.BASE_URL || detectedBase || '';
   // generate shortUrl that points to the API redirect route (/api/:shortCode)
   const shortUrl = base ? `${base.replace(/\/$/, "")}/api/${shortCode}` : `/api/${shortCode}`;
 
   const newUrl = await Url.create({
     shortCode,
-    originalUrl,
+    originalUrl: normalizeUrl(originalUrl),
     shortUrl,
     expiryDate: expiryDate ? new Date(expiryDate) : null
   });
