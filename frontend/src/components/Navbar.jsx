@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 export default function Navbar() {
   return (
-    <nav style={{ display: 'flex', gap: 12, padding: 12, borderBottom: '1px solid #eee', marginBottom: 12 }}>
-      <Link to="/">Home</Link>
-      <Link to="/dashboard">Dashboard</Link>
+    <nav className="navbar">
+      <Link to="/" className="navbar-logo">🔗 link-leap</Link>
+      <div className="navbar-links">
+        <Link to="/shorten" className="navbar-link">Shorten</Link>
+        <Link to="/dashboard" className="navbar-link">Dashboard</Link>
+      </div>
     </nav>
   );
 }
+

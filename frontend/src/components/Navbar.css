@@ -1,0 +1,29 @@
+.navbar {
+  display: flex;
+  gap: 24px;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+}
+.navbar-logo {
+  text-decoration: none;
+  font-weight: 700;
+  color: #667eea;
+  font-size: 1.2rem;
+}
+.navbar-links {
+  margin-left: auto;
+  display: flex;
+  gap: 16px;
+}
+.navbar-link {
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.navbar-link:hover {
+  color: #333;
+}

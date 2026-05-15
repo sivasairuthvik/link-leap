@@ -13,12 +13,20 @@ MERN-style URL shortener scaffold (Vite + React frontend in `frontend/`, backend
 - `frontend/src/components/Navbar.jsx`, `UrlCard.jsx`
 - `vercel.json` — build & routes for Vercel (serves `frontend` and `backend/api`)
 
-## Environment variables (set in Vercel or locally)
+## Environment variables
+
+Production defaults live in the repo root `.env`.
+Local development uses `backend/.env.local` and `frontend/.env.local`.
+
+Backend:
 - `MONGO_URI` — MongoDB Atlas connection string
-- `BASE_URL` — Your deployed app URL (e.g. `https://yourapp.vercel.app`)
- - `FRONTEND_URL` — (optional) the frontend origin (e.g. `https://shortner-link.vercel.app`) used to lock CORS. If unset, the API allows any origin (`*`).
- - `BASE_URL` — Your deployed app URL (e.g. `https://yourapp.vercel.app`)
- - `BASE_URL` — Your deployed app URL (e.g. `https://yourapp.vercel.app`)
+- `BASE_URL` — Backend origin for local dev or deployed API
+- `FRONTEND_URL` — Frontend origin used for CORS
+- `JWT_SECRET` — Token signing secret
+
+Frontend:
+- `VITE_API_BASE` — API base URL used by the browser app
+- `VITE_BASE_URL` — Frontend origin used for generated links
 
 Custom alias
 - The API supports an optional `customAlias` when creating a short link. It must match the pattern `^[A-Za-z0-9_-]{3,64}$` and must be unique. You can pass it from the frontend's Home form.
@@ -38,6 +46,13 @@ npm run dev
 ```
 
 This uses the root `dev` script which runs both the Vite frontend and the backend Express server concurrently.
+
+For local development, make sure these files exist:
+- `backend/.env.local`
+- `frontend/.env.local`
+
+The backend loader prefers `.env.local` when present, then falls back to `backend/.env`.
+Vite automatically prefers `frontend/.env.local`.
 
 Alternatively you can run them separately in two terminals:
 
