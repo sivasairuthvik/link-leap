@@ -17,7 +17,7 @@
   ],
   "functions": {
     "backend/api/**/*.js": {
-      "runtime": "nodejs@20"
+      "runtime": "nodejs@20.x"
     }
   }
 }
