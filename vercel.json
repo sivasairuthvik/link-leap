@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
   "rewrites": [
     {
@@ -18,7 +17,7 @@
   ],
   "functions": {
     "backend/api/**/*.js": {
-      "runtime": "nodejs20.x"
+      "runtime": "nodejs@20"
     }
   }
 }
